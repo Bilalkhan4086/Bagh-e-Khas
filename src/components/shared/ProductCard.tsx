@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Heart, ShoppingCart } from "lucide-react";
+import { Heart, ShoppingCart, Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import StarRating from "./StarRating";
 import type { Product } from "@/types";
+import { useCart, parsePriceNum } from "@/context/CartContext";
 import { cn } from "@/lib/utils";
 
 interface ProductCardProps {
@@ -14,7 +15,21 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const { addItem } = useCart();
   const [wishlisted, setWishlisted] = useState(false);
+  const [added, setAdded] = useState(false);
+
+  const handleAddToCart = () => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      priceNum: parsePriceNum(product.price),
+      image: product.image,
+    });
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1500);
+  };
 
   return (
     <article className="group bg-white rounded-card shadow-soft hover:shadow-card transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
@@ -94,11 +109,26 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
           <Button
             size="sm"
-            className="bg-brand-primary hover:bg-[#245030] text-white rounded-full gap-1.5 text-xs"
+            onClick={handleAddToCart}
+            className={cn(
+              "rounded-full gap-1.5 text-xs font-semibold transition-all duration-300",
+              added
+                ? "bg-green-500 hover:bg-green-500 text-white"
+                : "bg-brand-primary hover:bg-[#245030] text-white"
+            )}
             aria-label={`Add ${product.name} to cart`}
           >
-            <ShoppingCart className="w-3.5 h-3.5" aria-hidden="true" />
-            Add
+            {added ? (
+              <>
+                <Check className="w-3.5 h-3.5" aria-hidden="true" />
+                Added
+              </>
+            ) : (
+              <>
+                <ShoppingCart className="w-3.5 h-3.5" aria-hidden="true" />
+                Add
+              </>
+            )}
           </Button>
         </div>
       </div>

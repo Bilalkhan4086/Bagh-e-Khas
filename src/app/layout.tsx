@@ -3,6 +3,8 @@ import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { CartProvider } from "@/context/CartContext";
+import CartDrawer from "@/components/shared/CartDrawer";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -87,17 +89,20 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col font-sans">
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-brand-primary focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-medium"
-        >
-          Skip to main content
-        </a>
-        <Navbar />
-        <main id="main-content" className="flex-1">
-          {children}
-        </main>
-        <Footer />
+        <CartProvider>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-brand-primary focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-medium"
+          >
+            Skip to main content
+          </a>
+          <Navbar />
+          <main id="main-content" className="flex-1">
+            {children}
+          </main>
+          <Footer />
+          <CartDrawer />
+        </CartProvider>
       </body>
     </html>
   );

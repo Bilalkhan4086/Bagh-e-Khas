@@ -1,16 +1,34 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { Collection } from "@/types";
+import { useCart, parsePriceNum } from "@/context/CartContext";
+import { cn } from "@/lib/utils";
 
 interface CollectionCardProps {
   collection: Collection;
 }
 
 export default function CollectionCard({ collection }: CollectionCardProps) {
+  const { addItem } = useCart();
+  const [added, setAdded] = useState(false);
+
+  const handleAddToCart = () => {
+    addItem({
+      id: collection.id,
+      name: collection.name,
+      price: collection.price,
+      priceNum: parsePriceNum(collection.price),
+      image: collection.image,
+    });
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1500);
+  };
+
   return (
     <article className="group bg-white rounded-card shadow-soft hover:shadow-card transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
       {/* Image */}
@@ -49,11 +67,26 @@ export default function CollectionCard({ collection }: CollectionCardProps) {
           </span>
           <Button
             size="sm"
-            className="bg-brand-primary hover:bg-[#245030] text-white rounded-full gap-1.5 text-xs"
-            aria-label={`Shop ${collection.name}`}
+            onClick={handleAddToCart}
+            className={cn(
+              "rounded-full gap-1.5 text-xs font-semibold transition-all duration-300",
+              added
+                ? "bg-green-500 hover:bg-green-500 text-white"
+                : "bg-brand-primary hover:bg-[#245030] text-white"
+            )}
+            aria-label={`Add ${collection.name} to cart`}
           >
-            Shop Now
-            <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+            {added ? (
+              <>
+                <Check className="w-3.5 h-3.5" aria-hidden="true" />
+                Added
+              </>
+            ) : (
+              <>
+                Shop Now
+                <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+              </>
+            )}
           </Button>
         </div>
       </div>

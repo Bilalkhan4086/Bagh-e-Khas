@@ -1,14 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Search, Heart, ShoppingBag, User, Menu, Leaf } from "lucide-react";
+import { ShoppingBag, Menu, Leaf } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { navLinks } from "@/lib/data";
+import { useCart } from "@/context/CartContext";
 import { cn } from "@/lib/utils";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { totalItems, openCart } = useCart();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -61,42 +63,14 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Desktop Action Icons */}
-        <div className="hidden lg:flex items-center gap-1">
-          <button
-            className="p-2 rounded-full text-gray-600 hover:text-brand-primary hover:bg-gray-50 transition-colors duration-200"
-            aria-label="Search"
-          >
-            <Search className="w-5 h-5" />
-          </button>
-          <button
-            className="p-2 rounded-full text-gray-600 hover:text-brand-primary hover:bg-gray-50 transition-colors duration-200 relative"
-            aria-label="Wishlist"
-          >
-            <Heart className="w-5 h-5" />
-          </button>
-          <button
-            className="p-2 rounded-full text-gray-600 hover:text-brand-primary hover:bg-gray-50 transition-colors duration-200 relative"
-            aria-label="Shopping cart, 0 items"
-          >
-            <ShoppingBag className="w-5 h-5" />
-          </button>
-          <button
-            className="p-2 rounded-full text-gray-600 hover:text-brand-primary hover:bg-gray-50 transition-colors duration-200"
-            aria-label="Account"
-          >
-            <User className="w-5 h-5" />
-          </button>
+        {/* Cart button — desktop */}
+        <div className="hidden lg:flex items-center">
+          <CartButton count={totalItems} onClick={openCart} />
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile: cart + hamburger */}
         <div className="flex lg:hidden items-center gap-2">
-          <button
-            className="p-2 rounded-full text-gray-600 hover:text-brand-primary"
-            aria-label="Shopping cart"
-          >
-            <ShoppingBag className="w-5 h-5" />
-          </button>
+          <CartButton count={totalItems} onClick={openCart} />
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger>
               <span
@@ -114,18 +88,16 @@ export default function Navbar() {
             >
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="flex flex-col h-full">
-                <div className="flex items-center justify-between mb-8">
-                  <div className="flex items-center gap-2">
-                    <span className="w-7 h-7 rounded-full bg-brand-primary flex items-center justify-center">
-                      <Leaf className="w-3.5 h-3.5 text-white" aria-hidden="true" />
-                    </span>
-                    <span
-                      className="text-lg font-bold text-brand-primary"
-                      style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
-                    >
-                      Bagh-e-Khas
-                    </span>
-                  </div>
+                <div className="flex items-center gap-2 mb-8">
+                  <span className="w-7 h-7 rounded-full bg-brand-primary flex items-center justify-center">
+                    <Leaf className="w-3.5 h-3.5 text-white" aria-hidden="true" />
+                  </span>
+                  <span
+                    className="text-lg font-bold text-brand-primary"
+                    style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+                  >
+                    Bagh-e-Khas
+                  </span>
                 </div>
 
                 <nav aria-label="Mobile navigation links">
@@ -143,37 +115,31 @@ export default function Navbar() {
                     ))}
                   </ul>
                 </nav>
-
-                <div className="mt-8 pt-8 border-t border-gray-100">
-                  <div className="flex gap-4 px-4">
-                    <button
-                      className="flex items-center gap-2 text-sm text-gray-600 hover:text-brand-primary transition-colors"
-                      aria-label="Search"
-                    >
-                      <Search className="w-4 h-4" />
-                      Search
-                    </button>
-                    <button
-                      className="flex items-center gap-2 text-sm text-gray-600 hover:text-brand-primary transition-colors"
-                      aria-label="Wishlist"
-                    >
-                      <Heart className="w-4 h-4" />
-                      Wishlist
-                    </button>
-                    <button
-                      className="flex items-center gap-2 text-sm text-gray-600 hover:text-brand-primary transition-colors"
-                      aria-label="Account"
-                    >
-                      <User className="w-4 h-4" />
-                      Account
-                    </button>
-                  </div>
-                </div>
               </div>
             </SheetContent>
           </Sheet>
         </div>
       </nav>
     </header>
+  );
+}
+
+function CartButton({ count, onClick }: { count: number; onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className="relative p-2 rounded-full text-gray-600 hover:text-brand-primary hover:bg-gray-50 transition-colors duration-200"
+      aria-label={`Shopping cart, ${count} item${count !== 1 ? "s" : ""}`}
+    >
+      <ShoppingBag className="w-5 h-5" aria-hidden="true" />
+      {count > 0 && (
+        <span
+          className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-brand-primary text-white text-[10px] font-bold flex items-center justify-center leading-none"
+          aria-hidden="true"
+        >
+          {count > 9 ? "9+" : count}
+        </span>
+      )}
+    </button>
   );
 }
