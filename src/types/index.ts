@@ -1,3 +1,5 @@
+export type ProductCategory = "summer" | "premium-pakistani" | "imported";
+
 export interface Product {
   id: string;
   name: string;
@@ -10,6 +12,9 @@ export interface Product {
   tag?: string;
   isNew?: boolean;
   isBestSeller?: boolean;
+  isComingSoon?: boolean;
+  isOutOfStock?: boolean;
+  category?: ProductCategory;
 }
 
 export interface Collection {

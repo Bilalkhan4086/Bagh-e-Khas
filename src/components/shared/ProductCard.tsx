@@ -20,6 +20,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const [added, setAdded] = useState(false);
 
   const handleAddToCart = () => {
+    if (product.isComingSoon || product.isOutOfStock) return;
     addItem({
       id: product.id,
       name: product.name,
@@ -32,7 +33,14 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <article className="group bg-white rounded-card shadow-soft hover:shadow-card transition-all duration-300 overflow-hidden flex flex-col hover:-translate-y-1">
+    <article
+      className={cn(
+        "group bg-white rounded-card shadow-soft transition-all duration-300 overflow-hidden flex flex-col",
+        product.isComingSoon || product.isOutOfStock
+          ? "opacity-90"
+          : "hover:shadow-card hover:-translate-y-1"
+      )}
+    >
       {/* Image */}
       <div className="relative aspect-square overflow-hidden bg-brand-accent">
         <Image
@@ -40,46 +48,73 @@ export default function ProductCard({ product }: ProductCardProps) {
           alt={product.name}
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          className={cn(
+            "object-cover transition-transform duration-500",
+            product.isComingSoon || product.isOutOfStock
+              ? "grayscale-30 brightness-90"
+              : "group-hover:scale-105"
+          )}
           loading="lazy"
         />
 
-        {/* Badges */}
-        <div className="absolute top-3 left-3 flex flex-col gap-1.5">
-          {product.isNew && (
-            <Badge className="bg-brand-secondary text-white border-0 text-xs font-semibold">
-              New
-            </Badge>
-          )}
-          {product.isBestSeller && !product.isNew && (
-            <Badge className="bg-brand-primary text-white border-0 text-xs font-semibold">
-              Best Seller
-            </Badge>
-          )}
-          {product.tag && !product.isNew && !product.isBestSeller && (
-            <Badge className="bg-white/90 text-brand-primary border-0 text-xs font-semibold backdrop-blur-sm">
-              {product.tag}
-            </Badge>
-          )}
-        </div>
+        {/* Coming Soon overlay */}
+        {product.isComingSoon && (
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] flex items-center justify-center">
+            <span className="text-white text-sm font-bold tracking-widest uppercase px-3 py-1.5 rounded-full border border-white/60 bg-white/10">
+              Coming Soon
+            </span>
+          </div>
+        )}
 
-        {/* Wishlist button */}
-        <button
-          className={cn(
-            "absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm transition-all duration-200",
-            wishlisted
-              ? "text-red-500"
-              : "text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100"
-          )}
-          onClick={() => setWishlisted((prev) => !prev)}
-          aria-label={wishlisted ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
-          aria-pressed={wishlisted}
-        >
-          <Heart
-            className={cn("w-4 h-4", wishlisted ? "fill-current" : "")}
-            aria-hidden="true"
-          />
-        </button>
+        {/* Out of Stock overlay */}
+        {product.isOutOfStock && (
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px] flex items-center justify-center">
+            <span className="text-white text-sm font-bold tracking-widest uppercase px-3 py-1.5 rounded-full border border-red-400/60 bg-red-500/20">
+              Out of Stock
+            </span>
+          </div>
+        )}
+
+        {/* Badges (hidden when coming soon or out of stock) */}
+        {!product.isComingSoon && !product.isOutOfStock && (
+          <div className="absolute top-3 left-3 flex flex-col gap-1.5">
+            {product.isNew && (
+              <Badge className="bg-brand-secondary text-white border-0 text-xs font-semibold">
+                New
+              </Badge>
+            )}
+            {product.isBestSeller && !product.isNew && (
+              <Badge className="bg-brand-primary text-white border-0 text-xs font-semibold">
+                Best Seller
+              </Badge>
+            )}
+            {product.tag && !product.isNew && !product.isBestSeller && (
+              <Badge className="bg-white/90 text-brand-primary border-0 text-xs font-semibold backdrop-blur-sm">
+                {product.tag}
+              </Badge>
+            )}
+          </div>
+        )}
+
+        {/* Wishlist button (hidden when coming soon or out of stock) */}
+        {!product.isComingSoon && !product.isOutOfStock && (
+          <button
+            className={cn(
+              "absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm transition-all duration-200",
+              wishlisted
+                ? "text-red-500"
+                : "text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100"
+            )}
+            onClick={() => setWishlisted((prev) => !prev)}
+            aria-label={wishlisted ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
+            aria-pressed={wishlisted}
+          >
+            <Heart
+              className={cn("w-4 h-4", wishlisted ? "fill-current" : "")}
+              aria-hidden="true"
+            />
+          </button>
+        )}
       </div>
 
       {/* Content */}
@@ -98,7 +133,14 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         <div className="flex items-center justify-between mt-auto">
           <div className="flex items-center gap-2">
-            <span className="text-base font-bold text-brand-primary">
+            <span
+              className={cn(
+                "text-base font-bold",
+                product.isComingSoon || product.isOutOfStock
+                  ? "text-gray-400"
+                  : "text-brand-primary"
+              )}
+            >
               {product.price}
             </span>
             {product.originalPrice && (
@@ -107,29 +149,40 @@ export default function ProductCard({ product }: ProductCardProps) {
               </span>
             )}
           </div>
-          <Button
-            size="sm"
-            onClick={handleAddToCart}
-            className={cn(
-              "rounded-full gap-1.5 text-xs font-semibold transition-all duration-300",
-              added
-                ? "bg-green-500 hover:bg-green-500 text-white"
-                : "bg-brand-primary hover:bg-[#245030] text-white"
-            )}
-            aria-label={`Add ${product.name} to cart`}
-          >
-            {added ? (
-              <>
-                <Check className="w-3.5 h-3.5" aria-hidden="true" />
-                Added
-              </>
-            ) : (
-              <>
-                <ShoppingCart className="w-3.5 h-3.5" aria-hidden="true" />
-                Add
-              </>
-            )}
-          </Button>
+
+          {product.isComingSoon ? (
+            <span className="text-xs font-semibold text-gray-400 bg-gray-100 px-3 py-1.5 rounded-full">
+              Notify Me
+            </span>
+          ) : product.isOutOfStock ? (
+            <span className="text-xs font-semibold text-red-400 bg-red-50 px-3 py-1.5 rounded-full">
+              Out of Stock
+            </span>
+          ) : (
+            <Button
+              size="sm"
+              onClick={handleAddToCart}
+              className={cn(
+                "rounded-full gap-1.5 text-xs font-semibold transition-all duration-300",
+                added
+                  ? "bg-green-500 hover:bg-green-500 text-white"
+                  : "bg-brand-primary hover:bg-[#245030] text-white"
+              )}
+              aria-label={`Add ${product.name} to cart`}
+            >
+              {added ? (
+                <>
+                  <Check className="w-3.5 h-3.5" aria-hidden="true" />
+                  Added
+                </>
+              ) : (
+                <>
+                  <ShoppingCart className="w-3.5 h-3.5" aria-hidden="true" />
+                  Add
+                </>
+              )}
+            </Button>
+          )}
         </div>
       </div>
     </article>

@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { useCart } from "@/context/CartContext";
 import { cn } from "@/lib/utils";
 
-const WHATSAPP_NUMBER = "923001234567";
+const WHATSAPP_NUMBER = "923262689334";
 
 interface CustomerDetails {
   name: string;

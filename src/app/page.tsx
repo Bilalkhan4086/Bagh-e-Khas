@@ -1,6 +1,5 @@
 import HeroSection from "@/components/sections/HeroSection";
 import TrustSection from "@/components/sections/TrustSection";
-import FeaturedCollections from "@/components/sections/FeaturedCollections";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import BestSellers from "@/components/sections/BestSellers";
 import HowItWorks from "@/components/sections/HowItWorks";
@@ -14,7 +13,6 @@ export default function HomePage() {
     <>
       <HeroSection />
       <TrustSection />
-      <FeaturedCollections />
       <WhyChooseUs />
       <BestSellers />
       <HowItWorks />

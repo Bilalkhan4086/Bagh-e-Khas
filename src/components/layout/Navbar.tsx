@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ShoppingBag, Menu, Leaf } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import { ShoppingBag, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { navLinks } from "@/lib/data";
 import { useCart } from "@/context/CartContext";
@@ -33,32 +35,27 @@ export default function Navbar() {
         aria-label="Main navigation"
       >
         {/* Logo */}
-        <a
-          href="#home"
-          className="flex items-center gap-2 group"
-          aria-label="Bagh-e-Khas home"
-        >
-          <span className="w-8 h-8 rounded-full bg-brand-primary flex items-center justify-center flex-shrink-0">
-            <Leaf className="w-4 h-4 text-white" aria-hidden="true" />
-          </span>
-          <span
-            className="text-xl font-bold text-brand-primary"
-            style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
-          >
-            Bagh-e-Khas
-          </span>
-        </a>
+        <Link href="/" className="flex items-center" aria-label="Bagh-e-Khas home">
+          <Image
+            src="/logo.png"
+            alt="Bagh-e-Khas"
+            width={160}
+            height={54}
+            className="h-10 w-auto object-contain"
+            priority
+          />
+        </Link>
 
         {/* Desktop Nav Links */}
         <ul className="hidden lg:flex items-center gap-8" role="list">
           {navLinks.map((link) => (
             <li key={link.href}>
-              <a
+              <Link
                 href={link.href}
                 className="text-sm font-medium text-gray-700 hover:text-brand-primary transition-colors duration-200 relative after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-[1.5px] after:bg-brand-primary after:transition-all after:duration-300 hover:after:w-full"
               >
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -88,29 +85,27 @@ export default function Navbar() {
             >
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <div className="flex flex-col h-full">
-                <div className="flex items-center gap-2 mb-8">
-                  <span className="w-7 h-7 rounded-full bg-brand-primary flex items-center justify-center">
-                    <Leaf className="w-3.5 h-3.5 text-white" aria-hidden="true" />
-                  </span>
-                  <span
-                    className="text-lg font-bold text-brand-primary"
-                    style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
-                  >
-                    Bagh-e-Khas
-                  </span>
+                <div className="mb-8">
+                  <Image
+                    src="/logo.png"
+                    alt="Bagh-e-Khas"
+                    width={140}
+                    height={47}
+                    className="h-9 w-auto object-contain"
+                  />
                 </div>
 
                 <nav aria-label="Mobile navigation links">
                   <ul className="flex flex-col gap-1" role="list">
                     {navLinks.map((link) => (
                       <li key={link.href}>
-                        <a
+                        <Link
                           href={link.href}
                           className="block px-4 py-3 text-base font-medium text-gray-700 hover:text-brand-primary hover:bg-brand-accent rounded-xl transition-colors duration-200"
                           onClick={() => setMobileOpen(false)}
                         >
                           {link.label}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>

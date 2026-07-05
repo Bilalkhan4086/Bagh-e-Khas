@@ -55,13 +55,6 @@ export default function HeroSection() {
       {!reducedMotion && (
         <>
           <motion.div
-            className="absolute top-32 right-[42%] hidden lg:flex w-12 h-12 rounded-full bg-brand-accent items-center justify-center"
-            animate={floatingAnimation}
-            aria-hidden="true"
-          >
-            <Leaf className="w-5 h-5 text-brand-primary opacity-60" />
-          </motion.div>
-          <motion.div
             className="absolute bottom-40 right-[38%] hidden lg:flex w-10 h-10 rounded-full bg-white shadow-soft items-center justify-center"
             animate={{ ...floatingAnimation, transition: { ...floatingAnimation.transition, delay: 1.5 } }}
             aria-hidden="true"

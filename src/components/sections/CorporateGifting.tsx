@@ -62,7 +62,7 @@ export default function CorporateGifting() {
             <Button
               size="lg"
               variant="outline"
-              className="border-white/30 text-white hover:bg-white/10 rounded-full px-8 text-sm font-semibold h-12 backdrop-blur-sm"
+              className="border-white/30 text-white bg-transparent hover:bg-white/10 rounded-full px-8 text-sm font-semibold h-12 backdrop-blur-sm"
               aria-label="View corporate packages"
             >
               View Packages

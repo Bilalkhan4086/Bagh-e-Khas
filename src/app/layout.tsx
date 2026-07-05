@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { CartProvider } from "@/context/CartContext";
 import CartDrawer from "@/components/shared/CartDrawer";
+import LocatorProvider from "@/components/shared/LocatorProvider";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -31,6 +32,11 @@ export const metadata: Metadata = {
     "fresh fruits delivery Lahore",
     "Bagh-e-Khas",
   ],
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
   openGraph: {
     title: "Bagh-e-Khas | Pakistan's Finest Luxury Fruits",
     description:
@@ -38,12 +44,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_PK",
     siteName: "Bagh-e-Khas",
+    images: [{ url: "/logo.png", width: 1200, height: 400, alt: "Bagh-e-Khas Logo" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Bagh-e-Khas | Pakistan's Finest Luxury Fruits",
     description:
       "Premium seasonal fruits, hand-selected and beautifully packed for gifting and everyday living.",
+    images: ["/logo.png"],
   },
 };
 
@@ -102,6 +110,7 @@ export default function RootLayout({
           </main>
           <Footer />
           <CartDrawer />
+          <LocatorProvider />
         </CartProvider>
       </body>
     </html>
