@@ -1,6 +1,6 @@
 import AnimatedSection from "@/components/shared/AnimatedSection";
 
-const WHATSAPP_NUMBER = "923262689334";
+const WHATSAPP_NUMBER = "923277814489";
 const WHATSAPP_MESSAGE = encodeURIComponent(
   "Hi! I'd like to know more about Bagh-e-Khas. Please share your latest fruit availability and offers."
 );
@@ -46,7 +46,7 @@ export default function Newsletter() {
         </a>
 
         <p className="mt-5 text-xs text-gray-400">
-          WhatsApp Number: +92 326 268 9334
+          WhatsApp Number: +92 327 781 4489
         </p>
       </div>
     </AnimatedSection>
