@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import StarRating from "./StarRating";
 import type { Product } from "@/types";
 import { useCart, parsePriceNum } from "@/context/CartContext";
+import { trackAddToCart, trackSelectItem } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 interface ProductCardProps {
@@ -22,6 +23,12 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   const handleAddToCart = () => {
     if (product.isComingSoon || product.isOutOfStock) return;
+    trackAddToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      category: "Seasonal Fruit",
+    });
     addItem({
       id: product.id,
       name: product.name,
@@ -131,6 +138,14 @@ export default function ProductCard({ product }: ProductCardProps) {
         </p>
         <Link
           href={`/products/${product.id}`}
+          onClick={() =>
+            trackSelectItem({
+              id: product.id,
+              name: product.name,
+              price: product.price,
+              category: "Seasonal Fruit",
+            })
+          }
           className="mb-4 inline-flex cursor-pointer items-center gap-1.5 text-xs font-bold uppercase tracking-[0.16em] text-brand-secondary transition-colors duration-200 hover:text-brand-primary"
           aria-label={`View details for ${product.name}`}
         >

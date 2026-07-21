@@ -4,6 +4,7 @@ import { Check, MessageCircle, ShoppingBag } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { parsePriceNum, useCart } from "@/context/CartContext";
+import { trackAddToCart, trackItemInquiry } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 interface DetailActionsProps {
@@ -11,6 +12,7 @@ interface DetailActionsProps {
   name: string;
   price: string;
   image: string;
+  category: string;
   disabled?: boolean;
   disabledLabel?: string;
 }
@@ -22,6 +24,7 @@ export default function DetailActions({
   name,
   price,
   image,
+  category,
   disabled = false,
   disabledLabel = "Currently unavailable",
 }: DetailActionsProps) {
@@ -33,6 +36,7 @@ export default function DetailActions({
 
   const handleAdd = () => {
     if (disabled) return;
+    trackAddToCart({ id, name, price, category });
     addItem({
       id,
       name,
@@ -72,6 +76,7 @@ export default function DetailActions({
       </Button>
       <a
         href={`https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage}`}
+        onClick={() => trackItemInquiry({ id, name, price, category })}
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex h-12 cursor-pointer items-center justify-center gap-2 rounded-card border border-brand-secondary bg-white px-6 text-sm font-semibold text-brand-primary transition-colors duration-200 hover:bg-brand-secondary hover:text-white"

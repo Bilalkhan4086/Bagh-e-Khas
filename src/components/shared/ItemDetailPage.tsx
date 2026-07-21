@@ -4,6 +4,7 @@ import { ArrowLeft, CheckCircle2, Leaf, PackageCheck, Truck } from "lucide-react
 import { Badge } from "@/components/ui/badge";
 import type { ItemDetailCopy } from "@/lib/detail-copy";
 import DetailActions from "@/components/shared/DetailActions";
+import DetailViewTracker from "@/components/shared/DetailViewTracker";
 
 interface ItemDetailPageProps {
   backHref: string;
@@ -36,6 +37,12 @@ export default function ItemDetailPage({
 }: ItemDetailPageProps) {
   return (
     <article className="bg-[#fbfaf6] pt-28 md:pt-32">
+      <DetailViewTracker
+        id={actionId}
+        name={title}
+        price={price}
+        category={eyebrow}
+      />
       <div className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
         <Link
           href={backHref}
@@ -91,6 +98,7 @@ export default function ItemDetailPage({
                   name={title}
                   price={price}
                   image={image}
+                  category={eyebrow}
                   disabled={disabled}
                   disabledLabel={disabledLabel}
                 />

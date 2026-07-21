@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant, Montserrat } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -12,6 +13,7 @@ import {
   organizationJsonLd,
   SITE_URL,
 } from "@/lib/seo";
+import { GA_MEASUREMENT_ID } from "@/lib/analytics";
 
 const cormorant = Cormorant({
   variable: "--font-cormorant",
@@ -123,6 +125,18 @@ export default function RootLayout({
           <CartDrawer />
           <LocatorProvider />
         </CartProvider>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
       </body>
     </html>
   );

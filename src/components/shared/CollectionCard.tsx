@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { Collection } from "@/types";
 import { useCart, parsePriceNum } from "@/context/CartContext";
+import { trackAddToCart, trackSelectItem } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 interface CollectionCardProps {
@@ -19,6 +20,12 @@ export default function CollectionCard({ collection }: CollectionCardProps) {
   const [added, setAdded] = useState(false);
 
   const handleAddToCart = () => {
+    trackAddToCart({
+      id: collection.id,
+      name: collection.name,
+      price: collection.price,
+      category: "Gift Basket",
+    });
     addItem({
       id: collection.id,
       name: collection.name,
@@ -62,6 +69,14 @@ export default function CollectionCard({ collection }: CollectionCardProps) {
         </p>
         <Link
           href={`/collections/${collection.slug}`}
+          onClick={() =>
+            trackSelectItem({
+              id: collection.id,
+              name: collection.name,
+              price: collection.price,
+              category: "Gift Basket",
+            })
+          }
           className="mb-5 inline-flex cursor-pointer items-center gap-1.5 text-xs font-bold uppercase tracking-[0.16em] text-brand-secondary transition-colors duration-200 hover:text-brand-primary"
           aria-label={`View details for ${collection.name}`}
         >
