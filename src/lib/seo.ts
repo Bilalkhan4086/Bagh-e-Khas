@@ -1,6 +1,6 @@
 import type { Collection, Product } from "@/types";
 
-export const SITE_URL = "https://bagh-e-khas.com";
+export const SITE_URL = "https://www.baghekhas.com";
 export const BRAND_NAME = "Bagh-e-Khas";
 export const BRAND_LEGAL_NAME = "Bagh e Khas";
 export const DEFAULT_OG_IMAGE = "/bagh-e-khas-logo.png";

@@ -4,9 +4,9 @@ Bagh-e-Khas is a premium fruit brand in Lahore, Pakistan. The website sells hand
 
 ## Important URLs
 
-- Home: https://bagh-e-khas.com/
-- Sitemap: https://bagh-e-khas.com/sitemap.xml
-- Robots: https://bagh-e-khas.com/robots.txt
+- Home: https://www.baghekhas.com/
+- Sitemap: https://www.baghekhas.com/sitemap.xml
+- Robots: https://www.baghekhas.com/robots.txt
 - Instagram: https://instagram.com/bagh_e_khas
 - WhatsApp: https://wa.me/923277814489
 
