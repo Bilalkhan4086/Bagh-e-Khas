@@ -1,0 +1,24 @@
+# Bagh-e-Khas
+
+Bagh-e-Khas is a premium fruit brand in Lahore, Pakistan. The website sells hand-selected seasonal fruits, premium mango boxes, fruit gift baskets, family fruit boxes, office fruit plans, and corporate gifting hampers.
+
+## Important URLs
+
+- Home: https://bagh-e-khas.com/
+- Sitemap: https://bagh-e-khas.com/sitemap.xml
+- Robots: https://bagh-e-khas.com/robots.txt
+- Instagram: https://instagram.com/bagh_e_khas
+- WhatsApp: https://wa.me/923277814489
+
+## Main Offers
+
+- Premium seasonal fruits
+- White Chonsa Mango Box
+- Premium Gift Basket
+- Family Weekly Box
+- Seasonal Fruit Box
+- Corporate Gifting
+
+## Service Area
+
+Primary service area: Lahore, Pakistan.

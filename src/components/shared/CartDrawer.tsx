@@ -99,29 +99,30 @@ export default function CartDrawer() {
     <Sheet open={isOpen} onOpenChange={handleClose}>
       <SheetContent
         side="right"
-        className="w-full sm:w-[420px] p-0 flex flex-col bg-white"
+        showCloseButton={false}
+        className="flex w-full flex-col gap-0 border-[#ded5c6] bg-[#fbfaf6] p-0 sm:w-[430px]"
         aria-label="Shopping cart"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+        <div className="flex items-center justify-between border-b border-[#ded5c6] bg-white px-5 py-4">
           <div className="flex items-center gap-2">
             {step === "details" && (
               <button
                 onClick={() => setStep("cart")}
-                className="p-1 rounded-full hover:bg-gray-100 text-gray-500 transition-colors mr-1"
+                className="mr-1 cursor-pointer rounded-card p-1 text-[#62584c] transition-colors hover:bg-brand-accent hover:text-brand-primary"
                 aria-label="Back to cart"
               >
                 <ChevronRight className="w-4 h-4 rotate-180" aria-hidden="true" />
               </button>
             )}
             <ShoppingBag className="w-5 h-5 text-brand-primary" aria-hidden="true" />
-            <SheetTitle className="text-base font-bold text-brand-text" style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}>
+            <SheetTitle className="font-heading text-2xl font-semibold leading-none text-brand-text">
               {step === "cart" ? `Your Cart (${totalItems})` : "Delivery Details"}
             </SheetTitle>
           </div>
           <button
             onClick={handleClose}
-            className="p-1.5 rounded-full hover:bg-gray-100 text-gray-400 transition-colors"
+            className="cursor-pointer rounded-card p-1.5 text-[#8d8070] transition-colors hover:bg-brand-accent hover:text-brand-primary"
             aria-label="Close cart"
           >
             <X className="w-4 h-4" aria-hidden="true" />
@@ -129,29 +130,29 @@ export default function CartDrawer() {
         </div>
 
         {/* Step indicator */}
-        <div className="flex items-center gap-0 px-5 pt-3 pb-0">
+        <div className="flex items-center gap-0 bg-white px-5 pb-3 pt-3">
           {(["cart", "details"] as Step[]).map((s, i) => (
             <div key={s} className="flex items-center">
               <div
                 className={cn(
-                  "w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-colors",
+                  "flex h-6 w-6 items-center justify-center rounded-card text-xs font-bold transition-colors",
                   step === s || (s === "cart" && step === "details")
                     ? "bg-brand-primary text-white"
-                    : "bg-gray-100 text-gray-400"
+                    : "bg-[#f0ece3] text-[#8d8070]"
                 )}
               >
                 {i + 1}
               </div>
               <span
                 className={cn(
-                  "ml-1.5 text-xs font-medium transition-colors",
-                  step === s ? "text-brand-primary" : "text-gray-400"
+                  "ml-1.5 text-xs font-semibold uppercase tracking-[0.14em] transition-colors",
+                  step === s ? "text-brand-primary" : "text-[#8d8070]"
                 )}
               >
                 {s === "cart" ? "Cart" : "Details"}
               </span>
               {i === 0 && (
-                <div className={cn("w-8 h-px mx-2", step === "details" ? "bg-brand-primary" : "bg-gray-200")} />
+                <div className={cn("mx-2 h-px w-8", step === "details" ? "bg-brand-primary" : "bg-[#ded5c6]")} />
               )}
             </div>
           ))}
@@ -164,27 +165,27 @@ export default function CartDrawer() {
             <div className="flex flex-col h-full">
               {items.length === 0 ? (
                 <div className="flex flex-col items-center justify-center flex-1 py-20 px-8 text-center gap-4">
-                  <div className="w-16 h-16 rounded-full bg-brand-accent flex items-center justify-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-card bg-brand-accent">
                     <ShoppingBag className="w-7 h-7 text-brand-primary opacity-50" aria-hidden="true" />
                   </div>
-                  <p className="text-base font-semibold text-brand-text" style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}>
+                  <p className="font-heading text-3xl font-semibold text-brand-text">
                     Your cart is empty
                   </p>
-                  <p className="text-sm text-gray-400 leading-relaxed">
+                  <p className="text-sm leading-7 text-[#62584c]">
                     Add some premium fruits to get started.
                   </p>
                   <Button
                     onClick={handleClose}
-                    className="bg-brand-primary hover:bg-[#245030] text-white rounded-full mt-2"
+                    className="mt-2 rounded-card bg-brand-primary text-white hover:bg-[#102d21]"
                   >
                     Continue Shopping
                   </Button>
                 </div>
               ) : (
-                <ul className="divide-y divide-gray-50 px-5 py-2" role="list" aria-label="Cart items">
+                <ul className="divide-y divide-[#efe3ca] px-5 py-2" role="list" aria-label="Cart items">
                   {items.map((item) => (
                     <li key={item.id} className="flex items-start gap-3 py-4">
-                      <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-brand-accent flex-shrink-0">
+                      <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-card bg-brand-accent">
                         <Image
                           src={item.image}
                           alt={item.name}
@@ -194,17 +195,17 @@ export default function CartDrawer() {
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold text-brand-text leading-snug truncate" style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}>
+                        <p className="truncate font-heading text-xl font-semibold leading-tight text-brand-text">
                           {item.name}
                         </p>
-                        <p className="text-xs text-brand-primary font-semibold mt-0.5">
+                        <p className="mt-1 text-xs font-bold uppercase tracking-[0.12em] text-brand-primary">
                           {formatPrice(item.priceNum)}
                         </p>
                         <div className="flex items-center gap-2 mt-2">
-                          <div className="flex items-center border border-gray-200 rounded-full overflow-hidden">
+                          <div className="flex items-center overflow-hidden rounded-card border border-[#ded5c6] bg-white">
                             <button
                               onClick={() => updateQty(item.id, item.quantity - 1)}
-                              className="w-7 h-7 flex items-center justify-center text-gray-500 hover:text-brand-primary hover:bg-gray-50 transition-colors"
+                              className="flex h-7 w-7 cursor-pointer items-center justify-center text-[#62584c] transition-colors hover:bg-brand-accent hover:text-brand-primary disabled:cursor-not-allowed disabled:opacity-40"
                               aria-label={`Decrease quantity of ${item.name}`}
                               disabled={item.quantity <= 1}
                             >
@@ -215,18 +216,18 @@ export default function CartDrawer() {
                             </span>
                             <button
                               onClick={() => updateQty(item.id, item.quantity + 1)}
-                              className="w-7 h-7 flex items-center justify-center text-gray-500 hover:text-brand-primary hover:bg-gray-50 transition-colors"
+                              className="flex h-7 w-7 cursor-pointer items-center justify-center text-[#62584c] transition-colors hover:bg-brand-accent hover:text-brand-primary"
                               aria-label={`Increase quantity of ${item.name}`}
                             >
                               <Plus className="w-3 h-3" aria-hidden="true" />
                             </button>
                           </div>
-                          <span className="text-xs text-gray-400 flex-1">
+                          <span className="flex-1 text-xs font-medium text-[#8d8070]">
                             = {formatPrice(item.priceNum * item.quantity)}
                           </span>
                           <button
                             onClick={() => removeItem(item.id)}
-                            className="w-6 h-6 flex items-center justify-center text-gray-300 hover:text-red-400 transition-colors rounded-full hover:bg-red-50"
+                            className="flex h-6 w-6 cursor-pointer items-center justify-center rounded-card text-[#c5b9aa] transition-colors hover:bg-red-50 hover:text-red-500"
                             aria-label={`Remove ${item.name} from cart`}
                           >
                             <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
@@ -248,12 +249,12 @@ export default function CartDrawer() {
               noValidate
               aria-label="Delivery details form"
             >
-              <p className="text-sm text-gray-400 leading-relaxed">
+              <p className="rounded-card border border-[#ded5c6] bg-white p-4 text-sm leading-7 text-[#62584c]">
                 We&apos;ll open WhatsApp with your order pre-filled. Just hit send!
               </p>
 
               <div className="flex flex-col gap-1">
-                <label htmlFor="cart-name" className="text-xs font-semibold text-gray-600">
+                <label htmlFor="cart-name" className="text-xs font-bold uppercase tracking-[0.14em] text-[#62584c]">
                   Full Name <span className="text-red-400">*</span>
                 </label>
                 <Input
@@ -263,7 +264,7 @@ export default function CartDrawer() {
                   onChange={(e) => setDetails({ ...details, name: e.target.value })}
                   aria-invalid={!!errors.name}
                   aria-describedby={errors.name ? "cart-name-error" : undefined}
-                  className={cn("h-10 text-sm rounded-xl border-gray-200", errors.name && "border-red-300")}
+                  className={cn("h-10 rounded-card border-[#ded5c6] bg-white text-sm", errors.name && "border-red-300")}
                 />
                 {errors.name && (
                   <p id="cart-name-error" className="text-xs text-red-500" role="alert">{errors.name}</p>
@@ -271,7 +272,7 @@ export default function CartDrawer() {
               </div>
 
               <div className="flex flex-col gap-1">
-                <label htmlFor="cart-phone" className="text-xs font-semibold text-gray-600">
+                <label htmlFor="cart-phone" className="text-xs font-bold uppercase tracking-[0.14em] text-[#62584c]">
                   Phone Number <span className="text-red-400">*</span>
                 </label>
                 <Input
@@ -282,7 +283,7 @@ export default function CartDrawer() {
                   onChange={(e) => setDetails({ ...details, phone: e.target.value })}
                   aria-invalid={!!errors.phone}
                   aria-describedby={errors.phone ? "cart-phone-error" : undefined}
-                  className={cn("h-10 text-sm rounded-xl border-gray-200", errors.phone && "border-red-300")}
+                  className={cn("h-10 rounded-card border-[#ded5c6] bg-white text-sm", errors.phone && "border-red-300")}
                 />
                 {errors.phone && (
                   <p id="cart-phone-error" className="text-xs text-red-500" role="alert">{errors.phone}</p>
@@ -290,7 +291,7 @@ export default function CartDrawer() {
               </div>
 
               <div className="flex flex-col gap-1">
-                <label htmlFor="cart-address" className="text-xs font-semibold text-gray-600">
+                <label htmlFor="cart-address" className="text-xs font-bold uppercase tracking-[0.14em] text-[#62584c]">
                   Delivery Address <span className="text-red-400">*</span>
                 </label>
                 <textarea
@@ -302,7 +303,7 @@ export default function CartDrawer() {
                   aria-invalid={!!errors.address}
                   aria-describedby={errors.address ? "cart-address-error" : undefined}
                   className={cn(
-                    "w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-brand-primary/30 focus:border-brand-primary transition-colors",
+                    "w-full resize-none rounded-card border border-[#ded5c6] bg-white px-3 py-2.5 text-sm transition-colors focus:border-brand-primary focus:outline-none focus:ring-2 focus:ring-brand-primary/30",
                     errors.address && "border-red-300"
                   )}
                 />
@@ -312,15 +313,15 @@ export default function CartDrawer() {
               </div>
 
               <div className="flex flex-col gap-1">
-                <label htmlFor="cart-notes" className="text-xs font-semibold text-gray-600">
-                  Order Notes <span className="text-gray-400 font-normal">(optional)</span>
+                <label htmlFor="cart-notes" className="text-xs font-bold uppercase tracking-[0.14em] text-[#62584c]">
+                  Order Notes <span className="font-medium normal-case tracking-normal text-[#8d8070]">(optional)</span>
                 </label>
                 <Input
                   id="cart-notes"
                   placeholder="e.g. Call before delivery"
                   value={details.notes}
                   onChange={(e) => setDetails({ ...details, notes: e.target.value })}
-                  className="h-10 text-sm rounded-xl border-gray-200"
+                  className="h-10 rounded-card border-[#ded5c6] bg-white text-sm"
                 />
               </div>
             </form>
@@ -329,15 +330,15 @@ export default function CartDrawer() {
 
         {/* Footer — always visible */}
         {items.length > 0 && (
-          <div className="border-t border-gray-100 px-5 py-4 bg-white flex flex-col gap-3">
+          <div className="flex flex-col gap-3 border-t border-[#ded5c6] bg-white px-5 py-4">
             {/* Order summary */}
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-500">
+              <span className="text-sm font-medium text-[#62584c]">
                 {totalItems} item{totalItems !== 1 ? "s" : ""}
               </span>
               <div className="flex items-center gap-1">
-                <span className="text-xs text-gray-400">Total</span>
-                <span className="text-base font-bold text-brand-primary ml-2">
+                <span className="text-xs font-bold uppercase tracking-[0.14em] text-[#8d8070]">Total</span>
+                <span className="ml-2 text-lg font-bold text-brand-primary">
                   {formatPrice(totalPrice)}
                 </span>
               </div>
@@ -346,7 +347,7 @@ export default function CartDrawer() {
             {step === "cart" ? (
               <Button
                 onClick={() => setStep("details")}
-                className="w-full bg-brand-primary hover:bg-[#245030] text-white rounded-full h-11 gap-2 font-semibold text-sm"
+                className="h-11 w-full rounded-card bg-brand-primary text-sm font-semibold text-white hover:bg-[#102d21]"
               >
                 Proceed to Confirm
                 <ChevronRight className="w-4 h-4" aria-hidden="true" />
@@ -354,14 +355,14 @@ export default function CartDrawer() {
             ) : (
               <Button
                 onClick={handleConfirm}
-                className="w-full bg-[#25D366] hover:bg-[#1da851] text-white rounded-full h-11 gap-2 font-semibold text-sm"
+                className="h-11 w-full rounded-card bg-[#25D366] text-sm font-semibold text-white hover:bg-[#1da851]"
               >
                 <MessageCircle className="w-4 h-4" aria-hidden="true" />
                 Confirm Order via WhatsApp
               </Button>
             )}
 
-            <p className="text-center text-xs text-gray-400">
+            <p className="text-center text-xs leading-5 text-[#8d8070]">
               {step === "cart"
                 ? "No payment required upfront — COD available"
                 : "WhatsApp will open with your order details pre-filled"}

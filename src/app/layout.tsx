@@ -1,31 +1,45 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Cormorant, Montserrat } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { CartProvider } from "@/context/CartContext";
 import CartDrawer from "@/components/shared/CartDrawer";
 import LocatorProvider from "@/components/shared/LocatorProvider";
+import {
+  BRAND_NAME,
+  DEFAULT_OG_IMAGE,
+  organizationJsonLd,
+  SITE_URL,
+} from "@/lib/seo";
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+const cormorant = Cormorant({
+  variable: "--font-cormorant",
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
   display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Bagh-e-Khas | Pakistan's Finest Luxury Fruits & Gift Baskets",
+  metadataBase: new URL(SITE_URL),
+  applicationName: BRAND_NAME,
+  title: {
+    default: "Bagh-e-Khas | Premium Fruits & Fruit Gift Baskets in Lahore",
+    template: "%s | Bagh-e-Khas",
+  },
   description:
-    "Premium seasonal fruits, hand-selected and beautifully packed for gifting and everyday living. Same-day delivery in Lahore. Corporate gifting specialists.",
+    "Order premium seasonal fruits, White Chonsa mango boxes, fruit gift baskets, family fruit boxes, and corporate hampers from Bagh-e-Khas in Lahore.",
   keywords: [
     "luxury fruits Lahore",
+    "premium fruits Lahore",
+    "White Chonsa mango Lahore",
     "premium fruit basket Pakistan",
     "gift basket Lahore",
     "corporate gifting Pakistan",
@@ -33,25 +47,45 @@ export const metadata: Metadata = {
     "Bagh-e-Khas",
   ],
   icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    icon: DEFAULT_OG_IMAGE,
+    shortcut: DEFAULT_OG_IMAGE,
+    apple: DEFAULT_OG_IMAGE,
+  },
+  authors: [{ name: BRAND_NAME, url: SITE_URL }],
+  creator: BRAND_NAME,
+  publisher: BRAND_NAME,
+  category: "ecommerce",
+  classification: "Premium fruit delivery and fruit gifting",
+  alternates: {
+    canonical: "/",
   },
   openGraph: {
-    title: "Bagh-e-Khas | Pakistan's Finest Luxury Fruits",
+    title: "Bagh-e-Khas | Premium Fruits & Fruit Gift Baskets in Lahore",
     description:
-      "Premium seasonal fruits, hand-selected and beautifully packed for gifting and everyday living.",
+      "Premium seasonal fruits, White Chonsa mango boxes, elegant fruit gift baskets, family boxes, and corporate hampers delivered in Lahore.",
+    url: SITE_URL,
     type: "website",
     locale: "en_PK",
-    siteName: "Bagh-e-Khas",
-    images: [{ url: "/logo.png", width: 1200, height: 400, alt: "Bagh-e-Khas Logo" }],
+    siteName: BRAND_NAME,
+    images: [{ url: DEFAULT_OG_IMAGE, width: 1200, height: 1200, alt: "Bagh-e-Khas Logo" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bagh-e-Khas | Pakistan's Finest Luxury Fruits",
+    title: "Bagh-e-Khas | Premium Fruits & Fruit Gift Baskets in Lahore",
     description:
-      "Premium seasonal fruits, hand-selected and beautifully packed for gifting and everyday living.",
-    images: ["/logo.png"],
+      "Premium seasonal fruits, White Chonsa mango boxes, fruit gift baskets, and corporate hampers delivered in Lahore.",
+    images: [DEFAULT_OG_IMAGE],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 };
 
@@ -63,36 +97,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${inter.variable} h-full antialiased`}
+      className={`${cormorant.variable} ${montserrat.variable} h-full antialiased`}
     >
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@graph": [
-                {
-                  "@type": "LocalBusiness",
-                  name: "Bagh-e-Khas",
-                  description:
-                    "Premium seasonal fruits, hand-selected and beautifully packed for gifting and everyday living.",
-                  url: "https://bagh-e-khas.com",
-                  address: {
-                    "@type": "PostalAddress",
-                    addressLocality: "Lahore",
-                    addressCountry: "PK",
-                  },
-                  areaServed: "Lahore, Pakistan",
-                  priceRange: "PKR 2,500 - PKR 25,000",
-                },
-                {
-                  "@type": "WebSite",
-                  name: "Bagh-e-Khas",
-                  url: "https://bagh-e-khas.com",
-                },
-              ],
-            }),
+            __html: JSON.stringify(organizationJsonLd),
           }}
         />
       </head>

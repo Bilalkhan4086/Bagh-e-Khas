@@ -9,30 +9,29 @@ export default function Newsletter() {
   return (
     <AnimatedSection
       id="newsletter"
-      className="py-20 md:py-24 bg-brand-accent"
+      className="border-t border-[#ded5c6] bg-[#f1e5cf] py-20 md:py-24"
       aria-labelledby="newsletter-heading"
     >
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <p className="text-brand-secondary text-sm font-semibold uppercase tracking-widest mb-3">
+      <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-brand-secondary">
           Get in Touch
         </p>
         <h2
           id="newsletter-heading"
-          className="text-4xl md:text-5xl font-bold text-brand-text mb-4"
-          style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+          className="mb-4 text-4xl font-semibold leading-[1.02] text-brand-text md:text-6xl"
         >
-          Connect with Us on WhatsApp
+          Ask what is freshest today.
         </h2>
-        <p className="text-gray-500 text-base md:text-lg leading-relaxed mb-10">
-          Get seasonal fruit updates, exclusive offers, and gifting ideas straight
-          on WhatsApp. Message us now and our team will get back to you right away.
+        <p className="mx-auto mb-10 max-w-2xl text-base leading-8 text-[#62584c] md:text-lg">
+          Message our team for current seasonal availability, gifting guidance,
+          corporate quotes, or a family fruit box recommendation.
         </p>
 
         <a
           href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#1ebe5d] active:bg-[#17a84f] text-white font-semibold px-8 py-4 rounded-full transition-colors duration-200 text-base shadow-md hover:shadow-lg"
+          className="inline-flex cursor-pointer items-center gap-3 rounded-card bg-[#25D366] px-8 py-4 text-base font-semibold text-white shadow-md transition-colors duration-200 hover:bg-[#1ebe5d] hover:shadow-lg active:bg-[#17a84f]"
           aria-label="Connect on WhatsApp"
         >
           <svg
@@ -45,7 +44,7 @@ export default function Newsletter() {
           Chat with us on WhatsApp
         </a>
 
-        <p className="mt-5 text-xs text-gray-400">
+        <p className="mt-5 text-xs text-[#766b5f]">
           WhatsApp Number: +92 327 781 4489
         </p>
       </div>

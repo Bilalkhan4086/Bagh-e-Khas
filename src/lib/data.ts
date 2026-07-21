@@ -59,10 +59,10 @@ export const collections: Collection[] = [
 
 export const products: Product[] = [
   {
-    id: "alphonso-mangoes",
-    name: "Sindhri Mango Box",
+    id: "white-chonsa-mango",
+    name: "White Chonsa Mango Box",
     description:
-      "Pakistan's finest Sindhri mangoes — golden, sweet, and fragrant.",
+      "Premium White Chonsa mangoes — pale-golden, fibreless, intensely sweet, and selected for a smooth melt-in-mouth texture.",
     price: "Rs. 2,800",
     originalPrice: "Rs. 3,200",
     rating: 5,
@@ -206,7 +206,7 @@ export const testimonials: Testimonial[] = [
     location: "Johar Town, Lahore",
     rating: 5,
     review:
-      "Sindhri Mango Box zabardast thi — ghar tak deliver hone wale sabse behtareen aam jo maine kabhi chakkhe. Same-day delivery tohfe dene ke liye bilkul game-changer hai.",
+      "White Chonsa Mango Box zabardast thi — ghar tak deliver hone wale sabse behtareen aam jo maine kabhi chakkhe. Same-day delivery tohfe dene ke liye bilkul game-changer hai.",
     avatar:
       "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=200&q=80",
   },
@@ -305,7 +305,7 @@ export const instagramImages = [
   {
     id: "4",
     src: "https://images.unsplash.com/photo-1553279768-865429fa0078?w=600&q=80",
-    alt: "Fresh Sindhri mangoes",
+    alt: "Fresh White Chonsa mangoes",
   },
   {
     id: "5",
@@ -542,10 +542,10 @@ export const shopProducts: Product[] = [
     category: "premium-pakistani",
   },
   {
-    id: "shop-sindhri",
-    name: "Sindhri Mango",
+    id: "shop-white-chonsa",
+    name: "White Chonsa Mango",
     description:
-      "Golden, sweet, and fragrant — one of Pakistan's most exported varieties.",
+      "Pale-golden, fibreless, and intensely sweet — a premium mango variety prized for its smooth texture.",
     price: "Rs. 2,800",
     originalPrice: "Rs. 3,200",
     rating: 5,
@@ -866,17 +866,17 @@ export const shopProducts: Product[] = [
 
 export const footerLinks = {
   quickLinks: [
-    { label: "Home", href: "#home" },
-    { label: "Shop", href: "#best-sellers" },
-    { label: "Gift Boxes", href: "#featured-collections" },
-    { label: "Corporate Gifting", href: "#corporate-gifting" },
-    { label: "About Us", href: "#why-us" },
+    { label: "Home", href: "/#home" },
+    { label: "Shop", href: "/#best-sellers" },
+    { label: "Gift Boxes", href: "/#featured-collections" },
+    { label: "Corporate Gifting", href: "/#corporate-gifting" },
+    { label: "About Us", href: "/#why-us" },
   ],
   collections: [
-    { label: "Premium Gift Basket", href: "#" },
-    { label: "Family Weekly Box", href: "#" },
-    { label: "Seasonal Fruit Box", href: "#" },
-    { label: "Corporate Hampers", href: "#" },
-    { label: "Eid Special", href: "#" },
+    { label: "Premium Gift Basket", href: "/collections/premium-gift-basket" },
+    { label: "Family Weekly Box", href: "/collections/family-weekly-box" },
+    { label: "Seasonal Fruit Box", href: "/collections/seasonal-fruit-box" },
+    { label: "Corporate Hampers", href: "/collections/corporate-gifting" },
+    { label: "Eid Special", href: "/collections/premium-gift-basket" },
   ],
 };

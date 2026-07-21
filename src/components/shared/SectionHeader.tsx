@@ -26,21 +26,20 @@ export default function SectionHeader({
       )}
     >
       {eyebrow && (
-        <p className="text-brand-secondary text-sm font-semibold uppercase tracking-widest mb-3">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-brand-secondary">
           {eyebrow}
         </p>
       )}
       <h2
         id={id}
-        className="text-3xl md:text-4xl lg:text-5xl font-bold text-brand-text leading-tight"
-        style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+        className="text-4xl font-semibold leading-[1.02] text-brand-text md:text-5xl lg:text-6xl"
       >
         {title}
       </h2>
       {subtitle && (
         <p
           className={cn(
-            "mt-4 text-base md:text-lg text-gray-500 leading-relaxed",
+            "mt-4 text-base leading-8 text-[#62584c] md:text-lg",
             align === "center" ? "max-w-2xl mx-auto" : "max-w-2xl"
           )}
         >

@@ -13,14 +13,14 @@ export default function HowItWorks() {
   return (
     <AnimatedSection
       id="how-it-works"
-      className="py-20 md:py-28 bg-brand-accent"
+      className="bg-white py-20 md:py-28"
       aria-labelledby="how-it-works-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="Simple Process"
-          title="From Our Farms to Your Door"
-          subtitle="Three effortless steps to fresh, premium fruits on your doorstep."
+          title="A Quietly Rigorous Process"
+          subtitle="Every order follows the same care sequence: trusted sourcing, inspection, cleaning, sorting, professional packing, secure delivery, and customer follow-up."
           id="how-it-works-heading"
         />
 
@@ -33,23 +33,21 @@ export default function HowItWorks() {
             const isLast = index === howItWorksSteps.length - 1;
 
             return (
-              <li key={step.id} className="relative flex flex-col items-center text-center">
-                {/* Connector line (desktop) */}
+              <li key={step.id} className="group relative flex flex-col items-center text-center">
                 {!isLast && (
                   <div
-                    className="absolute top-8 left-[calc(50%+2.5rem)] right-[-50%] h-[1px] bg-brand-primary/20 hidden md:block"
+                    className="absolute left-[calc(50%+2.5rem)] right-[-50%] top-8 hidden h-px bg-[#ded5c6] md:block"
                     aria-hidden="true"
                   />
                 )}
 
-                {/* Step number + icon */}
                 <div className="relative mb-5">
-                  <div className="w-16 h-16 rounded-full bg-white shadow-soft flex items-center justify-center border-2 border-brand-primary/20 group-hover:border-brand-primary transition-colors">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-card border border-[#ded5c6] bg-[#fbfaf6] shadow-soft transition-colors duration-200 group-hover:border-brand-secondary">
                     {Icon && (
                       <Icon className="w-7 h-7 text-brand-primary" />
                     )}
                   </div>
-                  <div className="absolute -top-1.5 -right-1.5 w-6 h-6 rounded-full bg-brand-primary flex items-center justify-center">
+                  <div className="absolute -right-1.5 -top-1.5 flex h-6 w-6 items-center justify-center rounded-card bg-brand-primary">
                     <span className="text-white text-xs font-bold" aria-hidden="true">
                       {step.step}
                     </span>
@@ -57,12 +55,11 @@ export default function HowItWorks() {
                 </div>
 
                 <h3
-                  className="text-lg font-bold text-brand-text mb-2"
-                  style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+                  className="mb-2 font-heading text-2xl font-semibold text-brand-text"
                 >
                   {step.title}
                 </h3>
-                <p className="text-sm text-gray-500 leading-relaxed max-w-xs mx-auto">
+                <p className="mx-auto max-w-xs text-sm leading-6 text-[#62584c]">
                   {step.description}
                 </p>
               </li>

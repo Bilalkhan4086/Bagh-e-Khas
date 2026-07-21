@@ -1,6 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      {
+        source: "/products/alphonso-mangoes",
+        destination: "/products/white-chonsa-mango",
+        permanent: true,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {

@@ -41,14 +41,14 @@ export default function Testimonials() {
   return (
     <AnimatedSection
       id="testimonials"
-      className="py-20 md:py-28 bg-white overflow-hidden"
+      className="overflow-hidden bg-[#fbfaf6] py-20 md:py-28"
       aria-labelledby="testimonials-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="Customer Love"
-          title="What Our Customers Say"
-          subtitle="Trusted by hundreds of families, professionals, and corporates across Lahore."
+          title="Trust Built One Order at a Time"
+          subtitle="Families, professionals, and corporate clients choose Bagh e Khas when quality and presentation both matter."
           id="testimonials-heading"
         />
 
@@ -63,7 +63,7 @@ export default function Testimonials() {
           aria-atomic="true"
         >
           {/* Cards grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 min-h-[280px]">
+          <div className="grid min-h-[300px] grid-cols-1 gap-6 md:grid-cols-3">
             {visibleIndices.map((idx, position) => {
               const testimonial = testimonials[idx];
               return (
@@ -75,7 +75,7 @@ export default function Testimonials() {
                     exit={reducedMotion ? {} : { opacity: 0, y: -16 }}
                     transition={{ duration: 0.4, ease: "easeOut" as const, delay: position * 0.08 }}
                     className={cn(
-                      "bg-brand-accent rounded-card p-6 flex flex-col gap-4 relative",
+                      "relative flex flex-col gap-4 rounded-card border border-[#ded5c6] bg-white p-6 shadow-soft",
                       position !== 0 && "hidden md:flex"
                     )}
                     aria-label={`Testimonial from ${testimonial.name}`}
@@ -87,11 +87,11 @@ export default function Testimonials() {
 
                     <StarRating rating={testimonial.rating} />
 
-                    <p className="text-sm text-gray-600 leading-relaxed flex-1">
+                    <p className="flex-1 text-sm leading-7 text-[#62584c]">
                       &ldquo;{testimonial.review}&rdquo;
                     </p>
 
-                    <div className="flex items-center gap-3 pt-2 border-t border-white">
+                    <div className="flex items-center gap-3 border-t border-[#efe3ca] pt-4">
                       <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
                         <Image
                           src={testimonial.avatar}
@@ -104,7 +104,7 @@ export default function Testimonials() {
                       </div>
                       <div>
                         <p className="text-sm font-bold text-brand-text">{testimonial.name}</p>
-                        <p className="text-xs text-gray-400">{testimonial.location}</p>
+                        <p className="text-xs text-[#8d8070]">{testimonial.location}</p>
                       </div>
                     </div>
                   </motion.article>
@@ -117,7 +117,7 @@ export default function Testimonials() {
           <div className="flex items-center justify-center gap-4 mt-8">
             <button
               onClick={prev}
-              className="w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-500 hover:border-brand-primary hover:text-brand-primary transition-colors"
+              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-card border border-[#ded5c6] text-[#62584c] transition-colors hover:border-brand-primary hover:text-brand-primary"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-5 h-5" aria-hidden="true" />
@@ -133,10 +133,10 @@ export default function Testimonials() {
                   aria-label={`Go to testimonial ${i + 1}`}
                   onClick={() => setCurrent(i)}
                   className={cn(
-                    "w-2 h-2 rounded-full transition-all duration-300",
+                    "h-2 w-2 cursor-pointer rounded-full transition-all duration-300",
                     i === current
-                      ? "bg-brand-primary w-6"
-                      : "bg-gray-200 hover:bg-gray-300"
+                      ? "w-6 bg-brand-primary"
+                      : "bg-[#d8c5a1] hover:bg-brand-secondary"
                   )}
                 />
               ))}
@@ -144,7 +144,7 @@ export default function Testimonials() {
 
             <button
               onClick={next}
-              className="w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-500 hover:border-brand-primary hover:text-brand-primary transition-colors"
+              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-card border border-[#ded5c6] text-[#62584c] transition-colors hover:border-brand-primary hover:text-brand-primary"
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-5 h-5" aria-hidden="true" />

@@ -1,177 +1,125 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { ArrowRight, Leaf, Cherry } from "lucide-react";
+import { ArrowRight, CheckCircle2, Gift, Leaf, ShieldCheck, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
-
-const floatingAnimation = {
-  y: [0, -12, 0],
-  rotate: [0, 5, 0],
-  transition: {
-    duration: 4,
-    repeat: Infinity,
-    ease: "easeInOut" as const,
-  },
-};
-
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.15 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" as const },
-  },
-};
 
 export default function HeroSection() {
-  const reducedMotion = useReducedMotion();
-
   return (
     <section
       id="home"
-      className="relative min-h-[100svh] flex items-center pt-20 overflow-hidden bg-white"
+      className="relative min-h-[100svh] overflow-hidden bg-[#fbfaf6] pt-24 md:pt-28"
       aria-labelledby="hero-heading"
     >
-      {/* Background decorative circles */}
       <div
-        className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-brand-accent opacity-60 pointer-events-none"
+        className="absolute inset-x-0 top-0 h-40 bg-[linear-gradient(180deg,#f1e5cf_0%,rgba(251,250,246,0)_100%)] pointer-events-none"
         aria-hidden="true"
       />
       <div
-        className="absolute -bottom-16 -left-16 w-[300px] h-[300px] rounded-full bg-brand-accent opacity-40 pointer-events-none"
+        className="absolute inset-y-0 right-0 hidden w-1/2 bg-brand-primary lg:block"
         aria-hidden="true"
       />
-
-      {/* Floating decorative icons */}
-      {!reducedMotion && (
-        <>
-          <motion.div
-            className="absolute bottom-40 right-[38%] hidden lg:flex w-10 h-10 rounded-full bg-white shadow-soft items-center justify-center"
-            animate={{ ...floatingAnimation, transition: { ...floatingAnimation.transition, delay: 1.5 } }}
-            aria-hidden="true"
-          >
-            <Cherry className="w-4 h-4 text-brand-secondary opacity-70" />
-          </motion.div>
-          <motion.div
-            className="absolute top-40 left-[10%] hidden lg:flex w-8 h-8 rounded-full bg-brand-accent items-center justify-center"
-            animate={{ ...floatingAnimation, transition: { ...floatingAnimation.transition, delay: 2.5 } }}
-            aria-hidden="true"
-          >
-            <Leaf className="w-3.5 h-3.5 text-brand-primary opacity-50" />
-          </motion.div>
-        </>
-      )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center py-12 md:py-16">
-          {/* Text Content */}
-          <motion.div
-            variants={reducedMotion ? {} : containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="order-2 lg:order-1"
-          >
-            <motion.p
-              variants={reducedMotion ? {} : itemVariants}
-              className="text-brand-secondary text-sm font-semibold uppercase tracking-widest mb-4"
-            >
-              Premium Fruit Experience
-            </motion.p>
+        <div className="grid min-h-[calc(100svh-7rem)] gap-10 py-10 md:py-14 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+          <div className="relative z-10">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-brand-secondary">
+              The Special Garden of Lahore
+            </p>
 
-            <motion.h1
+            <h1
               id="hero-heading"
-              variants={reducedMotion ? {} : itemVariants}
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-text leading-[1.1] mb-6"
-              style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+              className="mb-6 max-w-3xl text-5xl font-semibold leading-[0.94] text-brand-text sm:text-6xl lg:text-7xl xl:text-8xl"
             >
-              Pakistan&apos;s Finest Fruits,{" "}
-              <span className="text-brand-primary">Beautifully Curated.</span>
-            </motion.h1>
+              Fruits selected like gifts, delivered like promises.
+            </h1>
 
-            <motion.p
-              variants={reducedMotion ? {} : itemVariants}
-              className="text-base md:text-lg text-gray-500 leading-relaxed mb-8 max-w-lg"
-            >
-              Premium seasonal fruits, hand-selected and beautifully packed for gifting
-              and everyday living. Same-day delivery across Lahore.
-            </motion.p>
+            <p className="mb-8 max-w-xl text-base leading-8 text-[#5f554a] md:text-lg">
+              Bagh e Khas curates premium seasonal fruit, elegant gift baskets,
+              family boxes, and office plans with daily sourcing, individual
+              inspection, professional packing, and reliable delivery across Lahore.
+            </p>
 
-            <motion.div
-              variants={reducedMotion ? {} : itemVariants}
-              className="flex flex-wrap gap-4"
-            >
+            <div className="flex flex-wrap gap-4">
               <Button
                 size="lg"
-                className="bg-brand-primary hover:bg-[#245030] text-white rounded-full px-8 gap-2 text-sm font-semibold h-12"
+                className="h-12 rounded-card bg-brand-primary px-7 text-sm font-semibold text-white hover:bg-[#102d21]"
                 aria-label="Shop our fruit collections"
               >
-                Shop Now
+                Shop Curated Boxes
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="border-brand-secondary text-brand-primary hover:bg-brand-secondary hover:text-white rounded-full px-8 text-sm font-semibold h-12"
+                className="h-12 rounded-card border-brand-secondary bg-white/80 px-7 text-sm font-semibold text-brand-primary hover:bg-brand-secondary hover:text-white"
                 aria-label="Explore our gift boxes"
               >
-                Explore Boxes
+                Explore Gift Baskets
               </Button>
-            </motion.div>
+            </div>
 
-            {/* Trust indicators */}
-            <motion.div
-              variants={reducedMotion ? {} : itemVariants}
-              className="mt-10 flex flex-wrap items-center gap-6"
-            >
+            <div className="mt-10 grid max-w-xl grid-cols-1 gap-3 sm:grid-cols-3">
               {[
-                { value: "500+", label: "Happy Customers" },
-                { value: "4.9★", label: "Average Rating" },
-                { value: "Same Day", label: "Delivery in Lahore" },
+                { icon: CheckCircle2, label: "Individually inspected" },
+                { icon: ShieldCheck, label: "Transparent quality" },
+                { icon: Truck, label: "Same-day Lahore delivery" },
               ].map((stat) => (
-                <div key={stat.label} className="flex flex-col">
-                  <span className="text-lg font-bold text-brand-primary leading-none">
-                    {stat.value}
-                  </span>
-                  <span className="text-xs text-gray-400 mt-0.5">{stat.label}</span>
+                <div
+                  key={stat.label}
+                  className="flex min-h-14 items-center gap-3 border border-[#ded5c6] bg-white/75 px-4 py-3 text-sm font-medium text-[#43392f] shadow-soft backdrop-blur"
+                >
+                  <stat.icon className="h-4 w-4 shrink-0 text-brand-secondary" aria-hidden="true" />
+                  <span>{stat.label}</span>
                 </div>
               ))}
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
-          {/* Hero Image */}
-          <motion.div
-            initial={reducedMotion ? {} : { opacity: 0, scale: 0.95 }}
-            animate={reducedMotion ? {} : { opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, ease: "easeOut" as const, delay: 0.2 }}
-            className="order-1 lg:order-2 relative"
-          >
-            <div className="relative aspect-square max-w-md mx-auto lg:max-w-none lg:aspect-[5/6]">
-              {/* Decorative background blob */}
-              <div
-                className="absolute inset-4 rounded-[40%_60%_60%_40%/40%_40%_60%_60%] bg-brand-accent"
-                aria-hidden="true"
-              />
-              <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-card">
+          <div className="relative z-10">
+            <div className="grid gap-4 sm:grid-cols-[1fr_0.72fr] lg:pl-4">
+              <div className="relative min-h-[420px] overflow-hidden rounded-card shadow-card lg:min-h-[620px]">
                 <Image
-                  src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=900&q=85"
-                  alt="Premium luxury fruit basket with a beautiful arrangement of seasonal fruits"
+                  src="/baskets/luxury-basket.png"
+                  alt="Luxury Bagh e Khas fruit gift basket with premium seasonal fruit"
                   fill
                   sizes="(max-width: 1024px) 90vw, 50vw"
                   className="object-cover"
                   priority
                 />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(24,60,45,0)_45%,rgba(24,60,45,0.82)_100%)]" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 text-white sm:p-6">
+                  <div className="mb-3 inline-flex items-center gap-2 border border-white/25 bg-white/15 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] backdrop-blur-md">
+                    <Gift className="h-4 w-4 text-brand-secondary" aria-hidden="true" />
+                    Gift-ready presentation
+                  </div>
+                  <p className="max-w-sm text-sm leading-6 text-white/80">
+                    Designed for Eid, Ramadan, weddings, corporate gestures,
+                    family tables, and thoughtful get-well gifts.
+                  </p>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-1">
+                <div className="relative min-h-48 overflow-hidden max-sm:hidden rounded-card bg-[#efe3ca] shadow-soft sm:min-h-72">
+                  <Image
+                    src="/baskets/premium-gift-basket.png"
+                    alt="Premium Bagh e Khas fruit basket"
+                    fill
+                    sizes="(max-width: 640px) 45vw, 25vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex min-h-48 flex-col justify-between  max-sm:hidden rounded-card border border-[#d8c5a1] bg-[#171411] p-5 text-white shadow-soft sm:min-h-72">
+                  <Leaf className="h-6 w-6 text-brand-secondary" aria-hidden="true" />
+                  <div>
+                    <p className="font-heading text-4xl font-semibold">6 steps</p>
+                    <p className="mt-2 text-sm leading-6 text-white/70">
+                      Sourcing, inspection, cleaning, sorting, packing, and
+                      follow-up for every order.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

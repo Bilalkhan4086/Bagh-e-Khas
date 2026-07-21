@@ -13,34 +13,31 @@ export default function TrustSection() {
   return (
     <AnimatedSection
       id="trust"
-      className="bg-brand-accent py-14 md:py-16"
+      className="border-y border-[#ded5c6] bg-[#171411] py-14 text-white md:py-16"
       aria-labelledby="trust-heading"
     >
       <h2 id="trust-heading" className="sr-only">
         Our Commitments
       </h2>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <ul
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
-          role="list"
-        >
+        <ul className="grid grid-cols-1 gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4" role="list">
           {trustFeatures.map((feature) => {
             const Icon = iconMap[feature.icon];
             return (
               <li
                 key={feature.id}
-                className="flex flex-col items-center text-center gap-3 p-5 bg-white rounded-card shadow-soft group"
+                className="group flex min-h-52 flex-col justify-between bg-[#171411] p-6 transition-colors duration-200 hover:bg-[#1f261d]"
               >
-                <div className="w-12 h-12 rounded-full border-2 border-brand-primary flex items-center justify-center group-hover:bg-brand-primary transition-colors duration-300">
+                <div className="flex h-12 w-12 items-center justify-center border border-brand-secondary/50 bg-white/5 transition-colors duration-200 group-hover:bg-brand-secondary">
                   {Icon && (
-                    <Icon className="w-5 h-5 text-brand-primary group-hover:text-white transition-colors duration-300" />
+                    <Icon className="h-5 w-5 text-brand-secondary transition-colors duration-200 group-hover:text-[#171411]" />
                   )}
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-brand-text mb-1">
+                  <h3 className="mb-2 font-heading text-2xl font-semibold text-white">
                     {feature.title}
                   </h3>
-                  <p className="text-xs text-gray-500 leading-relaxed">
+                  <p className="text-sm leading-6 text-white/60">
                     {feature.description}
                   </p>
                 </div>

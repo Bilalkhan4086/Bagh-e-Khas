@@ -7,18 +7,18 @@ export default function FeaturedCollections() {
   return (
     <AnimatedSection
       id="featured-collections"
-      className="py-20 md:py-28 bg-white"
+      className="bg-[#fbfaf6] py-20 md:py-28"
       aria-labelledby="collections-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="Our Collections"
           title="Curated for Every Occasion"
-          subtitle="From intimate family gifts to prestigious corporate hampers — every box is a statement of thoughtfulness."
+          subtitle="Personal fruit boxes, elegant gift baskets, family subscriptions, and corporate hampers designed to feel generous before they are opened."
           id="collections-heading"
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {collections.map((collection) => (
             <CollectionCard key={collection.id} collection={collection} />
           ))}
