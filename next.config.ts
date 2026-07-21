@@ -8,6 +8,21 @@ const nextConfig: NextConfig = {
         destination: "/products/white-chonsa-mango",
         permanent: true,
       },
+      {
+        source: "/sitemap",
+        destination: "/sitemap.xml",
+        permanent: true,
+      },
+      {
+        source: "/sitemap.xml/",
+        destination: "/sitemap.xml",
+        permanent: true,
+      },
+      {
+        source: "/robots",
+        destination: "/robots.txt",
+        permanent: true,
+      },
     ];
   },
   images: {
