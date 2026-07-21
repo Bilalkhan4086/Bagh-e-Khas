@@ -1,4 +1,5 @@
-export const GA_MEASUREMENT_ID = "G-1GMNHJBZNM";
+export const GA_MEASUREMENT_ID = "G-1GMNHJBZYT";
+export const META_PIXEL_ID = "1026026083468125";
 
 declare global {
   interface Window {
@@ -7,6 +8,11 @@ declare global {
       command: "event" | "config" | "js",
       targetId: string | Date,
       config?: Record<string, unknown>,
+    ) => void;
+    fbq?: (
+      command: "track" | "trackCustom",
+      eventName: string,
+      params?: Record<string, unknown>,
     ) => void;
   }
 }
@@ -29,6 +35,15 @@ function gaEvent(name: string, params: Record<string, unknown>) {
   window.gtag("event", name, params);
 }
 
+function metaEvent(
+  command: "track" | "trackCustom",
+  name: string,
+  params: Record<string, unknown>,
+) {
+  if (typeof window === "undefined" || typeof window.fbq !== "function") return;
+  window.fbq(command, name, params);
+}
+
 function ecommercePayload(item: AnalyticsItem) {
   const numericPrice = parseAnalyticsPrice(item.price);
 
@@ -47,16 +62,32 @@ function ecommercePayload(item: AnalyticsItem) {
   };
 }
 
+function metaEcommercePayload(item: AnalyticsItem) {
+  const numericPrice = parseAnalyticsPrice(item.price);
+
+  return {
+    content_ids: [item.id],
+    content_name: item.name,
+    content_category: item.category,
+    content_type: "product",
+    value: numericPrice,
+    currency: "PKR",
+  };
+}
+
 export function trackSelectItem(item: AnalyticsItem) {
   gaEvent("select_item", ecommercePayload(item));
+  metaEvent("trackCustom", "SelectItem", metaEcommercePayload(item));
 }
 
 export function trackViewItem(item: AnalyticsItem) {
   gaEvent("view_item", ecommercePayload(item));
+  metaEvent("track", "ViewContent", metaEcommercePayload(item));
 }
 
 export function trackAddToCart(item: AnalyticsItem) {
   gaEvent("add_to_cart", ecommercePayload(item));
+  metaEvent("track", "AddToCart", metaEcommercePayload(item));
 }
 
 export function trackItemInquiry(item: AnalyticsItem) {
@@ -67,5 +98,9 @@ export function trackItemInquiry(item: AnalyticsItem) {
     item_category: item.category,
     value: parseAnalyticsPrice(item.price),
     currency: "PKR",
+  });
+  metaEvent("track", "Lead", {
+    ...metaEcommercePayload(item),
+    method: "whatsapp",
   });
 }
