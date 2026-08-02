@@ -1,4 +1,4 @@
-export const GA_MEASUREMENT_ID = "G-1GMNHJBZYT";
+export const GA_MEASUREMENT_ID = "G-1GMNHJBZNM";
 export const META_PIXEL_ID = "1026026083468125";
 
 declare global {
