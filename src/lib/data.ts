@@ -175,7 +175,7 @@ export const products: Product[] = [
     rating: 5,
     reviewCount: 42,
     image:
-      "/fruits/cheeko.png",
+      "/fruits/Cheeko.png",
     tag: "Discounted",
   },
 ];
