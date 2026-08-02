@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { X, Plus, Minus, Trash2, ShoppingBag, MessageCircle, ChevronRight } from "lucide-react";
+import { X, Plus, Minus, Trash2, ShoppingBag, MessageCircle, ChevronRight, AlertCircle } from "lucide-react";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,27 +33,36 @@ export default function CartDrawer() {
   const [step, setStep] = useState<Step>("cart");
   const [details, setDetails] = useState<CustomerDetails>(emptyDetails);
   const [errors, setErrors] = useState<Partial<CustomerDetails>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitWarning, setSubmitWarning] = useState("");
 
   const formatPrice = (num: number) =>
     `Rs. ${num.toLocaleString("en-PK")}`;
 
   const handleClose = () => {
     closeCart();
-    setTimeout(() => setStep("cart"), 300);
+    setTimeout(() => {
+      setStep("cart");
+      setSubmitWarning("");
+    }, 300);
   };
 
   const validate = () => {
     const errs: Partial<CustomerDetails> = {};
     if (!details.name.trim()) errs.name = "Name is required";
     if (!details.phone.trim()) errs.phone = "Phone number is required";
-    else if (!/^[0-9+\-\s]{10,15}$/.test(details.phone.trim()))
-      errs.phone = "Enter a valid phone number";
+    else {
+      const digits = details.phone.replace(/\D/g, "");
+      if (!/^03\d{9}$/.test(digits) && !/^923\d{9}$/.test(digits) && !/^3\d{9}$/.test(digits)) {
+        errs.phone = "Enter a valid Pakistani mobile number";
+      }
+    }
     if (!details.address.trim()) errs.address = "Delivery address is required";
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
 
-  const buildWhatsAppMessage = () => {
+  const buildWhatsAppMessage = (orderId?: string) => {
     const itemLines = items
       .map(
         (item) =>
@@ -70,6 +79,7 @@ export default function CartDrawer() {
       itemLines,
       "",
       `*Order Total: ${formatPrice(totalPrice)}*`,
+      orderId ? `*Order Reference: ${orderId}*` : "",
       "",
       "*Delivery Details:*",
       `👤 Name: ${details.name}`,
@@ -85,14 +95,44 @@ export default function CartDrawer() {
     return encodeURIComponent(message);
   };
 
-  const handleConfirm = () => {
-    if (!validate()) return;
-    const msg = buildWhatsAppMessage();
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, "_blank");
+  const handleConfirm = async () => {
+    if (isSubmitting || !validate()) return;
+
+    setIsSubmitting(true);
+    setSubmitWarning("");
+    const orderId = crypto.randomUUID();
+    const whatsappWindow = window.open("about:blank", "_blank");
+    let savedOrderId: string | undefined;
+
+    try {
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orderId,
+          customer: details,
+          items: items.map((item) => ({ id: item.id, quantity: item.quantity })),
+        }),
+      });
+      const result = (await response.json()) as { saved?: boolean; orderId?: string };
+      if (!response.ok || !result.saved) throw new Error("Order was not saved");
+      savedOrderId = result.orderId;
+    } catch {
+      setSubmitWarning(
+        "We could not save your order to our system, but your WhatsApp order is ready to send."
+      );
+    }
+
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${buildWhatsAppMessage(savedOrderId)}`;
+    if (whatsappWindow) whatsappWindow.location.href = whatsappUrl;
+    else window.location.href = whatsappUrl;
+
     clearCart();
     setDetails(emptyDetails);
+    setErrors({});
     setStep("cart");
-    handleClose();
+    setIsSubmitting(false);
+    if (savedOrderId) handleClose();
   };
 
   return (
@@ -165,6 +205,12 @@ export default function CartDrawer() {
             <div className="flex flex-col h-full">
               {items.length === 0 ? (
                 <div className="flex flex-col items-center justify-center flex-1 py-20 px-8 text-center gap-4">
+                  {submitWarning && (
+                    <div className="flex items-start gap-2 rounded-card border border-amber-300 bg-amber-50 p-3 text-left text-sm text-amber-900" role="alert">
+                      <AlertCircle className="mt-0.5 h-4 w-4 flex-shrink-0" aria-hidden="true" />
+                      <span>{submitWarning}</span>
+                    </div>
+                  )}
                   <div className="flex h-16 w-16 items-center justify-center rounded-card bg-brand-accent">
                     <ShoppingBag className="w-7 h-7 text-brand-primary opacity-50" aria-hidden="true" />
                   </div>
@@ -260,6 +306,7 @@ export default function CartDrawer() {
                 <Input
                   id="cart-name"
                   placeholder="e.g. Ahmed Ali"
+                  maxLength={120}
                   value={details.name}
                   onChange={(e) => setDetails({ ...details, name: e.target.value })}
                   aria-invalid={!!errors.name}
@@ -279,6 +326,7 @@ export default function CartDrawer() {
                   id="cart-phone"
                   type="tel"
                   placeholder="e.g. 0300-1234567"
+                  maxLength={30}
                   value={details.phone}
                   onChange={(e) => setDetails({ ...details, phone: e.target.value })}
                   aria-invalid={!!errors.phone}
@@ -297,6 +345,7 @@ export default function CartDrawer() {
                 <textarea
                   id="cart-address"
                   rows={3}
+                  maxLength={500}
                   placeholder="House/flat number, street, area, city"
                   value={details.address}
                   onChange={(e) => setDetails({ ...details, address: e.target.value })}
@@ -319,6 +368,7 @@ export default function CartDrawer() {
                 <Input
                   id="cart-notes"
                   placeholder="e.g. Call before delivery"
+                  maxLength={500}
                   value={details.notes}
                   onChange={(e) => setDetails({ ...details, notes: e.target.value })}
                   className="h-10 rounded-card border-[#ded5c6] bg-white text-sm"
@@ -355,10 +405,12 @@ export default function CartDrawer() {
             ) : (
               <Button
                 onClick={handleConfirm}
+                disabled={isSubmitting}
+                aria-busy={isSubmitting}
                 className="h-11 w-full rounded-card bg-[#25D366] text-sm font-semibold text-white hover:bg-[#1da851]"
               >
                 <MessageCircle className="w-4 h-4" aria-hidden="true" />
-                Confirm Order via WhatsApp
+                {isSubmitting ? "Saving Order…" : "Confirm Order via WhatsApp"}
               </Button>
             )}
 

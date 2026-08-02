@@ -8,6 +8,26 @@ export interface ItemDetailCopy {
   care: string;
 }
 
+export function defaultProductDetail(product: Product): ItemDetailCopy {
+  return {
+    longDescription: `${product.description} Each order is checked for freshness and quality before being carefully packed for delivery across Lahore.`,
+    highlights: [
+      "Fresh stock selected for quality",
+      "Carefully inspected before dispatch",
+      "Packed to protect the fruit during delivery",
+      "Current discounted catalog price",
+    ],
+    includes: [
+      product.name,
+      "Quality inspection before dispatch",
+      "Protective Bagh e Khas packaging",
+      "Freshness guidance at delivery",
+    ],
+    idealFor: ["Everyday eating", "Family fruit bowls", "Healthy snacking", "Fresh delivery"],
+    care: "Check the fruit on arrival. Refrigerate ripe or delicate fruit and allow firm fruit to ripen naturally at room temperature.",
+  };
+}
+
 export const productDetails: Record<Product["id"], ItemDetailCopy> = {
   "white-chonsa-mango": {
     longDescription:

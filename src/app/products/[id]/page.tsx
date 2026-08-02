@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ItemDetailPage from "@/components/shared/ItemDetailPage";
-import { productDetails } from "@/lib/detail-copy";
+import { defaultProductDetail, productDetails } from "@/lib/detail-copy";
 import { products } from "@/lib/data";
 import {
   absoluteUrl,
@@ -72,9 +72,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   if (!product) notFound();
 
-  const detail = productDetails[product.id];
-
-  if (!detail) notFound();
+  const detail = productDetails[product.id] ?? defaultProductDetail(product);
 
   const disabled = product.isComingSoon || product.isOutOfStock;
   const url = productUrl(product);

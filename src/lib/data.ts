@@ -59,113 +59,124 @@ export const collections: Collection[] = [
 
 export const products: Product[] = [
   {
-    id: "white-chonsa-mango",
-    name: "White Chonsa Mango Box",
+    id: "white-chaunsa",
+    name: "White Chaunsa",
     description:
-      "Premium White Chonsa mangoes — pale-golden, fibreless, intensely sweet, and selected for a smooth melt-in-mouth texture.",
-    price: "Rs. 2,800",
-    originalPrice: "Rs. 3,200",
+      "Premium White Chaunsa mangoes with pale-golden, fibreless flesh and an intensely sweet flavour.",
+    price: "Rs. 330/kg",
     rating: 5,
     reviewCount: 124,
     image: "/fruits/mango.png",
-    tag: "Seasonal",
+    tag: "Discounted",
     isBestSeller: true,
   },
   {
-    id: "pineapple-box",
-    name: "Golden Pineapple Box",
+    id: "apples-irani",
+    name: "Apples Irani",
     description:
-      "Sweet, tangy pineapples at their ripest — sourced fresh from tropical farms.",
-    price: "Rs. 1,600",
-    rating: 4.7,
+      "Premium Iranian apples with crisp flesh, bright colour, and a balanced sweet flavour.",
+    price: "Rs. 350/kg",
+    rating: 5,
     reviewCount: 52,
     image:
-      "https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=800&q=80",
-    isOutOfStock: true,
+      "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=800&q=80",
+    tag: "Discounted",
+  },
+  {
+    id: "apple-gacha",
+    name: "Apple Gacha",
+    description:
+      "Fresh local Gacha apples selected for their juicy bite and everyday sweetness.",
+    price: "Rs. 220/kg",
+    rating: 5,
+    reviewCount: 48,
+    image:
+      "https://images.unsplash.com/photo-1611574474484-ced6cb70a2cf?q=80&w=2070",
+    tag: "Discounted",
+  },
+  {
+    id: "banana",
+    name: "Banana",
+    description:
+      "Naturally sweet bananas selected at the right stage for smooth, creamy ripening.",
+    price: "Rs. 280/kg",
+    rating: 5,
+    reviewCount: 96,
+    image:
+      "https://images.unsplash.com/photo-1603833665858-e61d17a86224?w=800&q=80",
+    tag: "Discounted",
+  },
+  {
+    id: "amrood",
+    name: "Amrood",
+    description:
+      "Fragrant, crisp white-flesh guavas selected for freshness and clean flavour.",
+    price: "Rs. 250/kg",
+    rating: 5,
+    reviewCount: 38,
+    image:
+      "/fruits/amrood.png",
+    tag: "Discounted",
+  },
+  {
+    id: "aaro-large-size",
+    name: "Aaro Large Size",
+    description:
+      "Large, velvety peaches with juicy flesh and a rich seasonal sweetness.",
+    price: "Rs. 330/kg",
+    rating: 5,
+    reviewCount: 45,
+    image:
+      "https://images.unsplash.com/photo-1639588473831-dd9d014646ae?q=80&w=2070",
+    tag: "Discounted",
+  },
+  {
+    id: "nashpati",
+    name: "Nashpati",
+    description:
+      "Crisp, delicate pears with juicy flesh and a mild, refreshing sweetness.",
+    price: "Rs. 310/kg",
+    rating: 5,
+    reviewCount: 44,
+    image:
+      "/fruits/pear.png",
+    tag: "Discounted",
   },
   {
     id: "dragon-fruit",
-    name: "Dragon Fruit Pack",
+    name: "Dragon Fruit",
     description:
       "Exotic dragon fruit sourced from trusted farms, vibrant and nutritious.",
-    price: "Rs. 1,900",
-    rating: 4.8,
+    price: "Rs. 2,000/kg",
+    rating: 5,
     reviewCount: 67,
     image:
-      "https://images.unsplash.com/photo-1527325678964-54921661f888?w=800&q=80",
-    isOutOfStock: true,
+      "https://images.unsplash.com/photo-1623030235422-07f96401f5ea?q=80&w=1035",
+    tag: "Discounted",
   },
   {
-    id: "premium-dates",
-    name: "Premium Date Selection",
+    id: "imli-box",
+    name: "Imli Box",
     description:
-      "Medjool and Ajwa dates in a luxury presentation box — perfect for gifting.",
-    price: "Rs. 3,500",
+      "Tangy tamarind selected for bold flavour in chutneys, drinks, and everyday cooking.",
+    price: "Rs. 500/kg",
     rating: 5,
-    reviewCount: 203,
+    reviewCount: 36,
     image:
-      "https://images.unsplash.com/photo-1648178629910-310cf88c2818?w=800&q=80",
-    tag: "Gift",
-    isComingSoon: true,
+      "/fruits/imli.png",
+    tag: "Discounted",
   },
   {
-    id: "pomegranate-pack",
-    name: "Kandhari Pomegranate",
+    id: "cheeko",
+    name: "Cheeko",
     description:
-      "Ruby-red pomegranates with a rich, jewel-like flavour from Kandahar farms.",
-    price: "Rs. 2,100",
-    rating: 4.7,
-    reviewCount: 45,
+      "Ripe sapodilla with soft, creamy flesh and a naturally rich caramel sweetness.",
+    price: "Rs. 310/kg",
+    rating: 5,
+    reviewCount: 42,
     image:
-      "https://images.unsplash.com/photo-1642359548284-80879b7677dc?w=800&q=80",
-    isComingSoon: true,
-  },
-  {
-    id: "guava-pack",
-    name: "Psidium Guava Box",
-    description:
-      "Fragrant, crispy white-flesh guavas known for their exceptional flavour.",
-    price: "Rs. 1,200",
-    rating: 4.6,
-    reviewCount: 38,
-    image:
-      "https://images.unsplash.com/photo-1536511132770-e5058c7e8c46?w=800&q=80",
-    isComingSoon: true,
-  },
-  {
-    id: "strawberry-box",
-    name: "Swabi Strawberry Box",
-    description:
-      "Hand-picked Swabi strawberries at the peak of sweetness and freshness.",
-    price: "Rs. 1,400",
-    originalPrice: "Rs. 1,650",
-    rating: 4.9,
-    reviewCount: 89,
-    image:
-      "https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=800&q=80",
-    isComingSoon: true,
-  },
-  {
-    id: "avocado-box",
-    name: "Creamy Avocado Box",
-    description: "Premium Hass avocados, perfectly ripened and ready to enjoy.",
-    price: "Rs. 2,200",
-    rating: 4.8,
-    reviewCount: 61,
-    image:
-      "https://images.unsplash.com/photo-1519162808019-7de1683fa2ad?w=800&q=80",
-    isOutOfStock: true,
-  },
-  {
-    id: "kiwi-box",
-    name: "Green Kiwi Box",
-    description: "Juicy, vitamin-packed kiwis with a bright tropical flavour.",
-    price: "Rs. 1,800",
-    rating: 4.6,
-    reviewCount: 44,
-    image:
-      "https://images.unsplash.com/photo-1585059895524-72359e06133a?w=800&q=80",
-    isOutOfStock: true,
+      "/fruits/cheeko.png",
+    tag: "Discounted",
   },
 ];
 
